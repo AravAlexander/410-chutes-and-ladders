@@ -19,7 +19,7 @@ struct board
 };
 
 int move(int, int, int);//accepts position of a player,  a die roll, and the 'name' of the player, returns new position
-void printBoard(struct board[], int, int, char, char);
+void printBoard(struct board[], int, int, char, char);//accepts the board, player positions, and player game piece
 
 int main()
 {
@@ -78,6 +78,7 @@ int main()
 
         cout<<"\n"<<endl;
 
+        //if no winner yet, player2's turn
         if(noWinner)
         {
             cout<<"Press enter to start Player 2's turn.";
@@ -107,7 +108,7 @@ int main()
                 noWinner = false;
             }
 
-        }
+        }//end player 2
 
     }//end loop to play game
 
@@ -117,7 +118,9 @@ int main()
 }
 
 int move(int currentPosition, int dieRoll, int PlayerNum)
-{
+{//update player's position based on die roll, previous position and chutes and ladders tile logic
+ //returns newposition 
+
     int newPosition, tempPosition;
 
     tempPosition = currentPosition + dieRoll;
@@ -188,7 +191,8 @@ int move(int currentPosition, int dieRoll, int PlayerNum)
 }
 
 void printBoard(struct board ChutesAndLadders[], int P1, int P2, char P1art, char P2art)
-{
+{//print the board, accepting board structure, positions and player artifacts
+
     int i, ii, index=0;
 
     cout<<"P1 is represented by "<<P1art<<"\nP2 is represented by "<<P2art<<endl;
@@ -197,22 +201,25 @@ void printBoard(struct board ChutesAndLadders[], int P1, int P2, char P1art, cha
     {
         for(ii=0;ii<10;ii++)
         {
-            //if ChutesAndLadders[index].tileNum == a player, print player character
+            //if both players on same tile
             if (P1==ChutesAndLadders[index].tileNum  && P2==ChutesAndLadders[index].tileNum)
             {
                 cout<<"["<<P1art<<" "<<P2art<<"]";
             }
 
+            //print p1 artifact
             else if(P1==ChutesAndLadders[index].tileNum)
             {
                 cout<<"[ "<<P1art<<" ]";
             }
 
+            //print p2 artifact
             else if(P2==ChutesAndLadders[index].tileNum)
             {
                 cout<<"[ "<<P2art<<" ]";
             }
 
+            //print tile number, no player here
             else
             {
                 cout<<"["<<setw(3)<<ChutesAndLadders[index].tileNum<<"]";
