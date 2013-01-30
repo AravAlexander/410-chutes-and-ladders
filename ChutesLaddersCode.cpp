@@ -4,12 +4,13 @@
 /* CodeBlocks 10.05 on MacOSX                                */
 /*                 Chutes and Ladders                        */
 /* Due: 02/01/13                                             */
-/* Last Revision Date: 01/29/13                              */
+/* Last Revision Date: 01/24/13                              */
 /*************************************************************/
 
 #include <iostream>
 #include <cstdlib>
 #include <iomanip>
+#include <ctime>
 using namespace std;
 
 struct board
@@ -28,7 +29,6 @@ int main()
     int dieRoll;
     bool noWinner = true;
     char junk;
-    int seed;
 
     board ChutesAndLadders[] = { {100}, {99}, {98}, {97}, {96}, {95}, {94}, {93}, {92}, {91},
                                  {81},  {82}, {83}, {84}, {85}, {86}, {87}, {88}, {89}, {90},
@@ -41,16 +41,12 @@ int main()
                                  {20},  {19}, {18}, {17}, {16}, {15}, {14}, {13}, {12}, {11},
                                  {1},   {2},  {3},  {4},  {5},  {6},  {7},  {8},  {9},  {10} };
 
-    cout<<"\n\nBefore we begin, please enter a random number seed: ";
-    cin>>seed;
-    cout<<endl;
 
-    srand(seed);//setting random seed for later usage
+    srand(time(0));//setting random seed for later usage
 
     cout<<string(50, '\n');//"clear" screen
 
-    cout<<"Welcome to Chutes and Ladders!\nThe first player to reach (or pass) tile 100 wins.\nPlease press enter to begin the game.\n"<<endl;
-    cin.get(junk);
+    cout<<"Welcome to Chutes and Ladders!\nThe first player to reach (or pass) tile 100 wins.\n"<<endl;
 
     while(noWinner)
     {//play the game within loop
