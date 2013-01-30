@@ -16,10 +16,11 @@ using namespace std;
 struct board
 {
     int tileNum;
+    string tileArt;
 };
 
 int move(int, int, int);//accepts position of a player,  a die roll, and the 'name' of the player, returns new position
-void printBoard(struct board[], int, int, char, char);//accepts the board, player positions, and player game piece
+void printBoard(struct board[], int, int, char, char);
 
 int main()
 {
@@ -30,16 +31,16 @@ int main()
     bool noWinner = true;
     char junk;
 
-    board ChutesAndLadders[] = { {100}, {99}, {98}, {97}, {96}, {95}, {94}, {93}, {92}, {91},
-                                 {81},  {82}, {83}, {84}, {85}, {86}, {87}, {88}, {89}, {90},
-                                 {80},  {79}, {78}, {77}, {76}, {75}, {74}, {73}, {72}, {71},
-                                 {61},  {62}, {63}, {64}, {65}, {66}, {67}, {68}, {69}, {70},
-                                 {60},  {59}, {58}, {57}, {56}, {55}, {54}, {53}, {52}, {51},
-                                 {41},  {42}, {43}, {44}, {45}, {46}, {47}, {48}, {49}, {50},
-                                 {40},  {39}, {38}, {37}, {36}, {35}, {34}, {33}, {32}, {31},
-                                 {21},  {22}, {23}, {24}, {25}, {26}, {27}, {28}, {29}, {30},
-                                 {20},  {19}, {18}, {17}, {16}, {15}, {14}, {13}, {12}, {11},
-                                 {1},   {2},  {3},  {4},  {5},  {6},  {7},  {8},  {9},  {10} };
+    board ChutesAndLadders[] = { {100, "100!"}, {99, " 99 "}, {98, "78->"}, {97, " 97 "}, {96, " 96 "}, {95, "75->"}, {94, " 94 "}, {93, "73->"}, {92, " 92 "}, {91, " 91 "},
+                                 {81, " 81 "},  {82, " 82 "}, {83, " 83 "}, {84, " 84 "}, {85, " 85 "}, {86, " 86 "}, {87, "<-24"}, {88, " 88 "}, {89, " 89 "}, {90, " 90 "},
+                                 {80, "<100"},  {79, " 79 "}, {78, " 78 "}, {77, " 77 "}, {76, " 76 "}, {75, " 75 "}, {74, " 74 "}, {73, " 73 "}, {72, " 72 "}, {71, "<-90"},
+                                 {61, " 61 "},  {62, "<-19"}, {63, " 63 "}, {64, "<-60"}, {65, " 65 "}, {66, " 66 "}, {67, " 67 "}, {68, " 68 "}, {69, " 69 "}, {70, " 70 "},
+                                 {60, " 60 "},  {59, " 59 "}, {58, " 58 "}, {57, " 57 "}, {56, "53->"}, {55, " 55 "}, {54, " 54 "}, {53, " 53 "}, {52, " 52 "}, {51, "<-67"},
+                                 {41, " 41 "},  {42, " 42 "}, {43, " 43 "}, {44, " 44 "}, {45, " 45 "}, {46, " 46 "}, {47, "<-26"}, {48, " 48 "}, {49, "<-11"}, {50, " 50 "},
+                                 {40, " 40 "},  {39, " 39 "}, {38, " 38 "}, {37, " 37 "}, {36, "<-44"}, {35, " 35 "}, {34, " 34 "}, {33, " 33 "}, {32, " 32 "}, {31, " 31 "},
+                                 {21, "42->"},  {22, " 22 "}, {23, " 23 "}, {24, " 24 "}, {25, " 25 "}, {26, " 26 "}, {27, " 27 "}, {28, "84->"}, {29, " 29 "}, {30, " 30 "},
+                                 {20, " 20 "},  {19, " 19 "}, {18, " 18 "}, {17, " 17 "}, {16, "6 ->"}, {15, " 15 "}, {14, " 14 "}, {13, " 13 "}, {12, " 12 "}, {11, " 11 "},
+                                 {1, "38->"},   {2, " 02 "},  {3, " 03 "},  {4, "14->"},  {5, " 05 "},  {6, " 06 "},  {7, " 07 "},  {8, " 08 "},  {9, "31->"},  {10, " 10 "} };
 
 
     srand(time(0));//setting random seed for later usage
@@ -78,7 +79,6 @@ int main()
 
         cout<<"\n"<<endl;
 
-        //if no winner yet, player2's turn
         if(noWinner)
         {
             cout<<"Press enter to start Player 2's turn.";
@@ -108,7 +108,7 @@ int main()
                 noWinner = false;
             }
 
-        }//end player 2
+        }
 
     }//end loop to play game
 
@@ -118,9 +118,7 @@ int main()
 }
 
 int move(int currentPosition, int dieRoll, int PlayerNum)
-{//update player's position based on die roll, previous position and chutes and ladders tile logic
- //returns newposition 
-
+{
     int newPosition, tempPosition;
 
     tempPosition = currentPosition + dieRoll;
@@ -191,8 +189,7 @@ int move(int currentPosition, int dieRoll, int PlayerNum)
 }
 
 void printBoard(struct board ChutesAndLadders[], int P1, int P2, char P1art, char P2art)
-{//print the board, accepting board structure, positions and player artifacts
-
+{
     int i, ii, index=0;
 
     cout<<"P1 is represented by "<<P1art<<"\nP2 is represented by "<<P2art<<endl;
@@ -201,28 +198,25 @@ void printBoard(struct board ChutesAndLadders[], int P1, int P2, char P1art, cha
     {
         for(ii=0;ii<10;ii++)
         {
-            //if both players on same tile
+            //if ChutesAndLadders[index].tileNum == a player, print player character
             if (P1==ChutesAndLadders[index].tileNum  && P2==ChutesAndLadders[index].tileNum)
             {
-                cout<<"["<<P1art<<" "<<P2art<<"]";
+                cout<<"["<<P1art<<"  "<<P2art<<"]";
             }
 
-            //print p1 artifact
             else if(P1==ChutesAndLadders[index].tileNum)
             {
-                cout<<"[ "<<P1art<<" ]";
+                cout<<"[ "<<P1art<<"  ]";
             }
 
-            //print p2 artifact
             else if(P2==ChutesAndLadders[index].tileNum)
             {
-                cout<<"[ "<<P2art<<" ]";
+                cout<<"[ "<<P2art<<"  ]";
             }
 
-            //print tile number, no player here
             else
             {
-                cout<<"["<<setw(3)<<ChutesAndLadders[index].tileNum<<"]";
+                cout<<"["<<setw(3)<<ChutesAndLadders[index].tileArt<<"]";
             }
 
             index++;
